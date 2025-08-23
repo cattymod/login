@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Logging in to CattyMod...</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<style>
+  @keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+  }
+  .spinner {
+    border: 4px solid rgba(255, 255, 255, 0.2);
+    border-top-color: white;
+    border-radius: 50%;
+    width: 32px;
+    height: 32px;
+    animation: spin 1s linear infinite;
+  }
+</style>
+</head>
+<body class="bg-gray-900 flex items-center justify-center min-h-screen text-gray-100 pointer-events-none">
+
+<div class="bg-gray-800 rounded-3xl shadow-2xl p-12 w-full max-w-md text-center">
+  <img src="https://avatars.githubusercontent.com/u/219615306?s=200&v=4" 
+       alt="CattyMod Icon" 
+       class="w-28 h-28 mx-auto rounded-full border-4 border-sky-400 mb-6">
+
+  <h1 class="text-4xl font-bold text-sky-400 mb-3">Login to CattyMod</h1>
+  <p class="text-gray-400 mb-8">
+    Processing GitHub authorization...
+  </p>
+
+  <div class="flex items-center justify-center gap-3 bg-sky-500 text-white font-semibold px-6 py-3 rounded-xl shadow-md w-full mb-4">
+    <div class="spinner"></div>
+    Continue with GitHub
+  </div>
+
+  <div class="flex items-center justify-center gap-3 bg-gray-700 text-gray-400 font-semibold px-6 py-3 rounded-xl w-full">
+    <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24">
+      <path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"/>
+    </svg>
+    Continue without signing in
+  </div>
+
+  <p class="text-gray-500 mt-8 text-sm">
+    Some tools may require sign-in for access.<br>
+    &copy; 2025 The CattyMod Team 💖
+  </p>
+</div>
+
+<script>
+  const params = new URLSearchParams(window.location.search);
+  const code = params.toString();
+
+  setTimeout(() => {
+    const targetUrl = code 
+      ? `https://cattymod.github.io/hub/?${code}` 
+      : 'https://cattymod.github.io/hub/';
+    window.location.href = targetUrl;
+  }, 500);
+</script>
+
+</body>
+</html>
