@@ -52,13 +52,14 @@
 
 <script>
   const params = new URLSearchParams(window.location.search);
-  const code = params.toString();
+  const code = params.get('code'); // only look for "code"
 
   setTimeout(() => {
-    const targetUrl = code 
-      ? `https://cattymod.github.io/hub/?${code}` 
-      : 'https://cattymod.github.io/hub/';
-    window.location.href = targetUrl;
+    if (code) {
+      window.location.href = `https://cattymod.github.io/hub/?${code}`;
+    } else {
+      window.location.href = 'https://cattymod.github.io/login';
+    }
   }, 500);
 </script>
 
