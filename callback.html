@@ -54,16 +54,20 @@
 
 <script>
   const params = new URLSearchParams(window.location.search);
-  const code = params.get('code'); // only look for "code"
+  const code = params.get('code'); // GitHub sends "code"
 
-  setTimeout(() => {
-    if (code) {
-      window.location.href = `https://cattymod.github.io/hub/?code=${code}`;
-    } else {
-      window.location.href = 'https://cattymod.github.io/login';
-    }
-  }, 500);
+  if (code) {
+    // Set CattyAuth cookie for 7 days
+    const expires = new Date();
+    expires.setDate(expires.getDate() + 7);
+    document.cookie = `CattyAuth=${code}; expires=${expires.toUTCString()}; path=/; SameSite=Lax`;
+
+    // Redirect to dashboard WITHOUT the code in URL
+    window.location.href = 'https://cattymod.github.io/hub/';
+  } else {
+    // No code: redirect to login
+    window.location.href = 'https://cattymod.github.io/login';
+  }
 </script>
-
 </body>
 </html>
