@@ -5,6 +5,21 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Login to CattyMod</title>
   <script src="https://cdn.tailwindcss.com"></script>
+
+  <script>
+    // Check if CattyAuth cookie exists
+    function getCookie(name) {
+      const value = `; ${document.cookie}`;
+      const parts = value.split(`; ${name}=`);
+      if (parts.length === 2) return parts.pop().split(';').shift();
+    }
+
+    const cattyAuth = getCookie('CattyAuth');
+    if (cattyAuth) {
+      // Already logged in, redirect to hub
+      window.location.href = '/hub/';
+    }
+  </script>
 </head>
 <body class="bg-gray-900 flex items-center justify-center min-h-screen text-gray-100">
 
