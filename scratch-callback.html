@@ -55,15 +55,18 @@
   const params = new URLSearchParams(window.location.search);
   const privateCode = params.get('privateCode'); // Scratch sends privateCode
 
-  setTimeout(() => {
-    if (privateCode) {
-      // Redirect to hub using code instead of privateCode
-      window.location.href = `https://cattymod.github.io/hub/?code=${privateCode}`;
-    } else {
-      window.location.href = 'https://cattymod.github.io/login';
-    }
-  }, 500);
-</script>
+  if (privateCode) {
+    // Set CattyAuth cookie for 7 days
+    const expires = new Date();
+    expires.setDate(expires.getDate() + 7);
+    document.cookie = `CattyAuth=${privateCode}; expires=${expires.toUTCString()}; path=/; SameSite=Lax`;
 
+    // Redirect to dashboard WITHOUT the code in the URL
+    window.location.href = 'https://cattymod.github.io/hub/';
+  } else {
+    // No code: redirect to login
+    window.location.href = 'https://cattymod.github.io/login';
+  }
+</script>
 </body>
 </html>
